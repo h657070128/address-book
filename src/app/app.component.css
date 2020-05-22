@@ -1,0 +1,38 @@
+table {
+    border-collapse: separate;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+    color: #575757;
+    margin: 24px 0 0;
+    max-width: 100%;
+    width: 100%;
+    border-spacing: 0;
+}
+
+table td, table th {
+    font-size: 13px;
+    line-height: 14px;
+    border-top: 1px solid #ededed;
+    padding: 11px 12px;
+    text-align: center;
+    vertical-align: top;
+}
+
+table th {
+    color: #575757;
+    font-size: 11px;
+    font-weight: 600;
+    background-color: #fafafa;
+    vertical-align: bottom;
+    border-bottom: 1px solid #ccc;
+    border-top: 0;
+}
+
+table tbody tr:first-child td {
+    border-top: 0;
+}
+
+.table-header {
+    cursor: pointer;
+}

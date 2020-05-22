@@ -1,0 +1,83 @@
+<h1 i18n>
+  Address Book
+</h1>
+<table>
+  <thead>
+    <tr>
+      <th>
+        <input type="checkbox" [(ngModel)]="selectAllChecked" (ngModelChange)="toggleSelectAllItems($event)" name="address-item-all-checked">
+      </th>
+      <th class="table-header" (click)="sortTheColumn('id')">
+        <ng-container i18n>ID</ng-container>
+        <span *ngIf="sortStatus['id'] === 'asc'">&#8593;</span>
+        <span *ngIf="sortStatus['id'] === 'desc'">&#8595;</span>
+      </th>
+      <th class="table-header" (click)="sortTheColumn('name')">
+        <ng-container i18n>Name</ng-container>
+        <span *ngIf="sortStatus['name'] === 'asc'">&#8593;</span>
+        <span *ngIf="sortStatus['name'] === 'desc'">&#8595;</span>
+      </th>
+      <th class="table-header" (click)="sortTheColumn('location')">
+        <ng-container i18n>Location</ng-container>
+        <span *ngIf="sortStatus['location'] === 'asc'">&#8593;</span>
+        <span *ngIf="sortStatus['location'] === 'desc'">&#8595;</span>
+      </th>
+      <th class="table-header" (click)="sortTheColumn('office')">
+        <ng-container i18n>Office</ng-container>
+        <span *ngIf="sortStatus['office'] === 'asc'">&#8593;</span>
+        <span *ngIf="sortStatus['office'] === 'desc'">&#8595;</span>
+      </th>
+      <th class="table-header" (click)="sortTheColumn('officePhone')">
+        <ng-container i18n>Office Phone</ng-container>
+        <span *ngIf="sortStatus['officePhone'] === 'asc'">&#8593;</span>
+        <span *ngIf="sortStatus['officePhone'] === 'desc'">&#8595;</span>
+      </th>
+      <th class="table-header" (click)="sortTheColumn('cellPhone')">
+        <ng-container i18n>Cell Phone</ng-container>
+        <span *ngIf="sortStatus['cellPhone'] === 'asc'">&#8593;</span>
+        <span *ngIf="sortStatus['cellPhone'] === 'desc'">&#8595;</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let addressItem of addressItems">
+      <td>
+        <input *ngIf="!addressItem.itemInEditingMode" type="checkbox" [(ngModel)]="addressItem.checked" (ngModelChange)="toggleSelectOneItem($event)" name="address-item-checked">
+      </td>
+      <td>
+        {{addressItem.id}}
+      </td>
+      <td>
+        <ng-container *ngIf="!addressItem.itemInEditingMode">{{addressItem.name}}</ng-container>
+        <input *ngIf="addressItem.itemInEditingMode" type="input" [(ngModel)]="addressItem.name" name="name">
+      </td>
+      <td>
+        <ng-container *ngIf="!addressItem.itemInEditingMode">{{addressItem.location}}</ng-container>
+        <input *ngIf="addressItem.itemInEditingMode" type="input" [(ngModel)]="addressItem.location" name="location">
+      </td>
+      <td>
+        <ng-container *ngIf="!addressItem.itemInEditingMode">{{addressItem.office}}</ng-container>
+        <input *ngIf="addressItem.itemInEditingMode" type="input" [(ngModel)]="addressItem.office" name="office">
+      </td>
+      <td>
+        <ng-container *ngIf="!addressItem.itemInEditingMode">{{addressItem.officePhone}}</ng-container>
+        <input *ngIf="addressItem.itemInEditingMode" type="input" [(ngModel)]="addressItem.officePhone" name="office-phone">
+      </td>
+      <td (dblclick)="startEditingCellPhone(addressItem)">
+        <ng-container *ngIf="!addressItem.itemInEditingMode && !addressItem.cellPhoneInEditingMode">{{addressItem.cellPhone}}</ng-container>
+        <input *ngIf="addressItem.itemInEditingMode || addressItem.cellPhoneInEditingMode" type="input" [(ngModel)]="addressItem.cellPhone" name="cell-phone">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button [disabled]="noItemSelected(addressItems)" (click)="deleteSelectedRows()" i18n>Delete</button>
+<button [disabled]="noItemInEditMode(addressItems)" (click)="updateModifiedAddresses(addressItems)" i18n>Update</button>
+<button (click)="addAnAddress()" i18n>Add</button>
+
+<p>
+  Q: Think of how to localize this
+</p>
+<p>
+  A: Add the "i18n" attribute to all the text in the application, and use "ng xi18n" command to generate the translation file, translate the text into other languages by adding "&lt;target&gt;". Use this translated file and do some configurations, we can serve/depoy the app using that language. For this example, run "ng serve --configuration=zh-CN" to view a Chinese version.
+</p>
